@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  @apply text-gray-900;
+  min-height: 100vh;
+  background-color: #050b1f;
+  background-image:
+    /* haz de luz: núcleo blanco cayendo desde arriba-centro */
+    radial-gradient(ellipse 28% 85% at 50% 0%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.55) 14%, rgba(219, 234, 254, 0.22) 30%, rgba(147, 197, 253, 0.08) 48%, rgba(147, 197, 253, 0) 65%),
+    /* halo azul alrededor del haz */
+    radial-gradient(ellipse 60% 70% at 50% 10%, rgba(37, 99, 235, 0.5) 0%, rgba(29, 78, 216, 0) 65%),
+    /* resplandor tenue en las esquinas para que no quede plano */
+    radial-gradient(ellipse 70% 50% at 10% 90%, rgba(30, 64, 175, 0.35) 0%, rgba(30, 64, 175, 0) 60%),
+    radial-gradient(ellipse 70% 50% at 90% 85%, rgba(30, 58, 138, 0.35) 0%, rgba(30, 58, 138, 0) 60%),
+    /* base azul marino muy oscuro */
+    linear-gradient(180deg, #0a1230 0%, #050b1f 55%, #030712 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+::selection {
+  @apply bg-brand-100 text-brand-900;
+}

@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: csv-processing-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: csv_user
+      POSTGRES_PASSWORD: csv_password
+      POSTGRES_DB: document_processing
+    ports:
+      - "5432:5432"
+    volumes:
+      - csv_processing_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U csv_user -d document_processing"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  localstack:
+    image: localstack/localstack:3
+    container_name: csv-processing-localstack
+    restart: unless-stopped
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,sqs
+      - DEBUG=0
+      - PERSISTENCE=1
+    volumes:
+      - csv_processing_localstack_data:/var/lib/localstack
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+volumes:
+  csv_processing_pg_data:
+  csv_processing_localstack_data:
